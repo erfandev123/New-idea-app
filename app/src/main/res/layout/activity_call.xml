@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dark_background">
+
+    <!-- Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/semi_transparent"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/transparent"
+            app:titleTextColor="@color/on_primary"
+            app:navigationIcon="@drawable/ic_arrow_back" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Video Views -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- Remote Video -->
+        <org.webrtc.SurfaceViewRenderer
+            android:id="@+id/remote_video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- Local Video (Picture-in-Picture) -->
+        <org.webrtc.SurfaceViewRenderer
+            android:id="@+id/local_video_view"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="16dp" />
+
+        <!-- Profile Image (for audio calls) -->
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_person"
+            android:visibility="gone"
+            app:civ_border_width="4dp"
+            app:civ_border_color="@color/primary" />
+
+    </FrameLayout>
+
+    <!-- Incoming Call UI -->
+    <LinearLayout
+        android:id="@+id/layout_incoming_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:gravity="center"
+        android:background="@drawable/gradient_background">
+
+        <ImageView
+            android:id="@+id/iv_call_type"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_call"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tv_call_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Incoming Call"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/on_primary"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="is calling you"
+            android:textSize="16sp"
+            android:textColor="@color/semi_transparent_white"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Answer/Decline Buttons -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_decline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:src="@drawable/ic_call_end"
+                app:backgroundTint="@color/call_decline"
+                app:tint="@color/on_primary" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_call"
+                app:backgroundTint="@color/call_accept"
+                app:tint="@color/on_primary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Outgoing Call UI -->
+    <LinearLayout
+        android:id="@+id/layout_outgoing_call"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:gravity="center"
+        android:background="@drawable/gradient_background"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_call_type"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_call"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:id="@+id/tv_call_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Calling..."
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/on_primary"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please wait"
+            android:textSize="16sp"
+            android:textColor="@color/semi_transparent_white"
+            android:layout_marginBottom="32dp" />
+
+        <!-- End Call Button -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_end_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_call_end"
+            app:backgroundTint="@color/call_decline"
+            app:tint="@color/on_primary" />
+
+    </LinearLayout>
+
+    <!-- Call Controls -->
+    <LinearLayout
+        android:id="@+id/layout_call_controls"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/semi_transparent"
+        android:visibility="gone">
+
+        <!-- Call Duration -->
+        <TextView
+            android:id="@+id/tv_call_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="00:00"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/on_primary"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Control Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_mute"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_mic"
+                app:backgroundTint="@color/surface"
+                app:tint="@color/on_surface"
+                app:fabSize="mini" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_speaker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_volume_up"
+                app:backgroundTint="@color/surface"
+                app:tint="@color/on_surface"
+                app:fabSize="mini" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_video"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_videocam"
+                app:backgroundTint="@color/surface"
+                app:tint="@color/on_surface"
+                app:fabSize="mini" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btn_end_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_call_end"
+                app:backgroundTint="@color/call_decline"
+                app:tint="@color/on_primary" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
